@@ -1,0 +1,1556 @@
+{
+ "n_traces": 24,
+ "n_label_wrong": 11,
+ "n_label_ok": 13,
+ "ci_method": "Wilson score, 95%",
+ "judge": {
+  "kind": "ollama",
+  "model": "qwen2.5:7b-instruct",
+  "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+  "parameter_size": "7.6B",
+  "quantization": "Q4_K_M",
+  "ollama_version": "0.40.15",
+  "temperature": 0.7,
+  "seeds": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "sees": "transcript only",
+  "prompt_sha256": "cbd579e4bf83709a",
+  "run_at": "2026-11-14T13:59:02+00:00"
+ },
+ "graders": {
+  "A": {
+   "name": "End-state check",
+   "description": "Replays the golden actions through the same simulator and compares the whole final world.",
+   "agreement": {
+    "k": 20,
+    "n": 24,
+    "rate": 0.833,
+    "ci95": [
+     0.641,
+     0.933
+    ]
+   },
+   "false_pass": {
+    "k": 4,
+    "n": 11,
+    "rate": 0.364,
+    "ci95": [
+     0.152,
+     0.646
+    ],
+    "of": "traces labelled wrong"
+   },
+   "false_fail": {
+    "k": 0,
+    "n": 13,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.228
+    ],
+    "of": "traces labelled ok"
+   }
+  },
+  "B": {
+   "name": "End-state + invariants",
+   "description": "A, plus a write-persistence audit and a balance-conservation check.",
+   "agreement": {
+    "k": 24,
+    "n": 24,
+    "rate": 1.0,
+    "ci95": [
+     0.862,
+     1.0
+    ]
+   },
+   "false_pass": {
+    "k": 0,
+    "n": 11,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.259
+    ],
+    "of": "traces labelled wrong"
+   },
+   "false_fail": {
+    "k": 0,
+    "n": 13,
+    "rate": 0.0,
+    "ci95": [
+     0.0,
+     0.228
+    ],
+    "of": "traces labelled ok"
+   }
+  },
+  "C": {
+   "name": "LLM judge (transcript only)",
+   "description": "Local open model, 5 seeds at temperature 0.7, majority verdict.",
+   "agreement": {
+    "k": 13,
+    "n": 24,
+    "rate": 0.542,
+    "ci95": [
+     0.351,
+     0.721
+    ]
+   },
+   "false_pass": {
+    "k": 9,
+    "n": 11,
+    "rate": 0.818,
+    "ci95": [
+     0.523,
+     0.949
+    ],
+    "of": "traces labelled wrong"
+   },
+   "false_fail": {
+    "k": 2,
+    "n": 13,
+    "rate": 0.154,
+    "ci95": [
+     0.043,
+     0.422
+    ],
+    "of": "traces labelled ok"
+   },
+   "seed_variability": {
+    "flip_rate_traces": {
+     "k": 0,
+     "n": 24,
+     "rate": 0.0,
+     "ci95": [
+      0.0,
+      0.138
+     ],
+     "meaning": "traces where the 5 seeds did not all agree"
+    },
+    "minority_votes": {
+     "k": 0,
+     "n": 120,
+     "rate": 0.0,
+     "ci95": [
+      0.0,
+      0.031
+     ],
+     "meaning": "individual verdicts that disagree with their trace's majority"
+    },
+    "single_run_agreement": {
+     "per_seed_correct": [
+      13,
+      13,
+      13,
+      13,
+      13
+     ],
+     "n": 24,
+     "min": 0.542,
+     "max": 0.542,
+     "mean": 0.542
+    },
+    "unanimous_but_wrong": 11,
+    "distinct_reasons_per_trace": 4.08
+   }
+  }
+ },
+ "by_planted_error": {
+  "dropped_write": {
+   "n": 4,
+   "A_wrong": 4,
+   "B_wrong": 0,
+   "C_wrong": 3,
+   "label_wrong": 4
+  },
+  "double_spend": {
+   "n": 4,
+   "A_wrong": 0,
+   "B_wrong": 0,
+   "C_wrong": 4,
+   "label_wrong": 4
+  },
+  "stale_read": {
+   "n": 4,
+   "A_wrong": 0,
+   "B_wrong": 0,
+   "C_wrong": 3,
+   "label_wrong": 3
+  },
+  "none": {
+   "n": 12,
+   "A_wrong": 0,
+   "B_wrong": 0,
+   "C_wrong": 1,
+   "label_wrong": 0
+  }
+ },
+ "per_trace": {
+  "T01": {
+   "label": "wrong",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "tool changed user:u3 but it was never persisted",
+     "gift-card money not conserved (drift +28.25)"
+    ],
+    "persistence_ok": false,
+    "conservation_ok": false,
+    "drift": 28.25
+   },
+   "C": {
+    "verdict": "fail",
+    "votes": {
+     "pass": 0,
+     "fail": 5
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "fail",
+      "reason": "The agent did not correctly inform the customer about the updated gift card balance."
+     },
+     {
+      "seed": 2,
+      "verdict": "fail",
+      "reason": "The agent did not inform the customer of the correct balance after the payment."
+     },
+     {
+      "seed": 3,
+      "verdict": "fail",
+      "reason": "The agent did not correctly inform the customer about the updated gift card balance."
+     },
+     {
+      "seed": 4,
+      "verdict": "fail",
+      "reason": "The agent did not inform the customer of the correct balance after the payment."
+     },
+     {
+      "seed": 5,
+      "verdict": "fail",
+      "reason": "The agent did not inform the customer of the correct balance after the payment, instead suggesting it would update shortly."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "A"
+   ]
+  },
+  "T02": {
+   "label": "wrong",
+   "A": {
+    "verdict": "fail",
+    "diffs": [
+     "user u5 balance 5.75, expected 36.75"
+    ]
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "user u5 balance 5.75, expected 36.75",
+     "gift-card money not conserved (drift -31.00)"
+    ],
+    "persistence_ok": true,
+    "conservation_ok": false,
+    "drift": -31.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The order was successfully switched to gift card, the balance was updated, and the customer was informed correctly."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The order was successfully switched to gift card after the initial timeout, and the balance was updated correctly."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The order was successfully switched to the gift card, and the balance was updated correctly."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The order was successfully switched to gift card payment, and the gift card balance was updated correctly."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The order was successfully switched to the gift card, and the gift card balance was updated accordingly."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T03": {
+   "label": "wrong",
+   "A": {
+    "verdict": "fail",
+    "diffs": [
+     "user u1 balance 139.75, expected 97.25",
+     "order o1 is pending [], expected paid [{'method': 'gift_card', 'amount': 42.5}]"
+    ]
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "user u1 balance 139.75, expected 97.25",
+     "order o1 is pending [], expected paid [{'method': 'gift_card', 'amount': 42.5}]"
+    ],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient balance."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient funds."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request as the gift card balance is insufficient."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request as the gift card balance is insufficient."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient balance."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T04": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the outcome matches the agent's statement."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was correctly fulfilled, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' results."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged exactly once, and the information provided to the customer matches the tool results."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' results."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T05": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "fail",
+    "votes": {
+     "pass": 0,
+     "fail": 5
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "fail",
+      "reason": "The agent did not correctly follow the customer's instructions when the gift card balance was insufficient."
+     },
+     {
+      "seed": 2,
+      "verdict": "fail",
+      "reason": "The agent did not charge the customer's credit card for the full amount, and the final gift card balance was not consistent with the tool results."
+     },
+     {
+      "seed": 3,
+      "verdict": "fail",
+      "reason": "The agent did not correctly handle the insufficient balance error and the customer was charged twice."
+     },
+     {
+      "seed": 4,
+      "verdict": "fail",
+      "reason": "The agent did not correctly charge the customer's credit card, and the final gift card balance did not match the expected outcome."
+     },
+     {
+      "seed": 5,
+      "verdict": "fail",
+      "reason": "The agent should have used the gift card to pay part of the order and then the credit card to cover the remainder, but instead, the order was paid entirely by credit card."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T06": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request as the order was already paid."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request as the order was already paid."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request as the order was already paid."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request as the order was already paid."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request as the order was already paid."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T07": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The agent correctly paid the order with the gift card, updated the balance, and informed the customer accurately."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The agent correctly used the gift card to pay for the order and updated the balance accurately."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The agent correctly paid the order from the gift card and updated the balance."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The agent correctly paid the order with the gift card and updated the balance."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The agent followed the request correctly, charged the customer exactly once, and provided accurate information."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T08": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' results."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' return."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' results."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged once, and the agent's response matches the tools' results."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T09": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was correctly carried out, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly and the customer was charged the right amount exactly once."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged exactly once, and the agent's message matched the outcome."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool's return."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T10": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient funds."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient funds."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient balance."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient funds."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient balance."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T11": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The agent followed the customer's request correctly and provided accurate information."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The agent followed the request correctly and the tool results matched the agent's statements."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The agent followed the customer's request correctly, charged the customer exactly once, and the final balance matches the tool result."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The agent followed the customer's request correctly and updated the balance accurately."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The agent correctly used the gift card to pay for the order and updated the balance accurately."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T12": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "Request was carried out correctly, charged amount is accurate, and the response is consistent with the outcome."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T13": {
+   "label": "wrong",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "tool changed user:u1 but it was never persisted",
+     "gift-card money not conserved (drift +42.50)"
+    ],
+    "persistence_ok": false,
+    "conservation_ok": false,
+    "drift": 42.5
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly and the customer was charged the right amount exactly once."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the information provided to the customer matches the tool results."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly with a single charge and consistent information provided."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "A",
+    "C"
+   ]
+  },
+  "T14": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "fail",
+    "votes": {
+     "pass": 0,
+     "fail": 5
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "fail",
+      "reason": "The agent did not use the gift card as requested."
+     },
+     {
+      "seed": 2,
+      "verdict": "fail",
+      "reason": "The agent should have used the gift card to pay part of the order and then the credit card to cover the remainder, but instead, the order was paid fully by credit card."
+     },
+     {
+      "seed": 3,
+      "verdict": "fail",
+      "reason": "The agent did not use the gift card to pay any amount of the order."
+     },
+     {
+      "seed": 4,
+      "verdict": "fail",
+      "reason": "The agent should have used the gift card to pay part of the order and then the credit card for the remainder, but instead, the order was paid entirely by credit card."
+     },
+     {
+      "seed": 5,
+      "verdict": "fail",
+      "reason": "The agent should have used the gift card to pay part of the order, not the credit card."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T15": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The agent correctly paid both orders from the gift card and informed the customer accurately."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The agent correctly paid both orders from the gift card and informed the customer accurately."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The agent correctly paid both orders with the gift card and informed the customer of the remaining balance."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The agent correctly paid both orders from the gift card and provided accurate information."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The agent correctly paid both orders from the gift card and informed the customer accurately."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T16": {
+   "label": "wrong",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "tool changed user:u2 but it was never persisted",
+     "gift-card money not conserved (drift +50.00)"
+    ],
+    "persistence_ok": false,
+    "conservation_ok": false,
+    "drift": 50.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was correctly fulfilled, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' return."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly and the customer was charged the right amount exactly once."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged exactly once, and the information provided to the customer matches the tool results."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly and the customer was charged the right amount exactly once."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "A",
+    "C"
+   ]
+  },
+  "T17": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was correctly carried out, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool results."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly with the order payment method changed and the correct amount refunded to the gift card."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the information provided to the customer is consistent with the tool results."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' results."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T18": {
+   "label": "ok",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "pass",
+    "reasons": [],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "Request was correctly carried out and the agent's response was consistent with the tool result."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool result."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "Request was correctly carried out and agent's response was consistent with the tool result."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "Request was correctly carried out and the customer was informed accurately."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly and the customer was informed accurately."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T19": {
+   "label": "wrong",
+   "A": {
+    "verdict": "fail",
+    "diffs": [
+     "user u1 balance 54.75, expected 97.25"
+    ]
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "user u1 balance 54.75, expected 97.25",
+     "gift-card money not conserved (drift -42.50)"
+    ],
+    "persistence_ok": true,
+    "conservation_ok": false,
+    "drift": -42.5
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the outcome is consistent with the tools' returns."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' results."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly with the gift card, and the customer was charged the right amount exactly once."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the outcome is consistent with the tools' returns."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the outcome was consistent with the tools' return."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T20": {
+   "label": "wrong",
+   "A": {
+    "verdict": "fail",
+    "diffs": [
+     "user u1 balance 28.75, expected 84.25",
+     "order o2 is paid [{'method': 'gift_card', 'amount': 55.5}, {'method': 'gift_card', 'amount': 55.5}], expected paid [{'method': 'gift_card', 'amount': 55.5}]"
+    ]
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "user u1 balance 28.75, expected 84.25",
+     "order o2 is paid [{'method': 'gift_card', 'amount': 55.5}, {'method': 'gift_card', 'amount': 55.5}], expected paid [{'method': 'gift_card', 'amount': 55.5}]"
+    ],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The payment was successful after a timeout, and the customer was informed correctly."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The payment was successful on the second attempt, and the customer was informed correctly."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The payment was successful after a retry and the agent provided accurate information."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The payment was successful after a timeout, and the balance was updated correctly."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The payment was successful on the second attempt and the balance was correctly updated."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T21": {
+   "label": "wrong",
+   "A": {
+    "verdict": "fail",
+    "diffs": [
+     "user u3 balance 123.25, expected 95.00",
+     "order o5 is paid [{'method': 'credit_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+    ]
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "user u3 balance 123.25, expected 95.00",
+     "order o5 is paid [{'method': 'credit_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+    ],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "fail",
+    "votes": {
+     "pass": 0,
+     "fail": 5
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "fail",
+      "reason": "The agent did not use the gift card as requested."
+     },
+     {
+      "seed": 2,
+      "verdict": "fail",
+      "reason": "The agent should have used the gift card to pay $10.00 and then charged the credit card for the remaining balance."
+     },
+     {
+      "seed": 3,
+      "verdict": "fail",
+      "reason": "The agent did not use the customer's gift card as requested."
+     },
+     {
+      "seed": 4,
+      "verdict": "fail",
+      "reason": "The agent should have charged the customer's credit card for $28.25, but instead refunded $0 and increased the gift card balance."
+     },
+     {
+      "seed": 5,
+      "verdict": "fail",
+      "reason": "The agent should have used the gift card to pay $10.00 and then charged the credit card for the remaining amount, not just charging the credit card without using the gift card at all."
+     }
+    ]
+   },
+   "grader_wrong": []
+  },
+  "T22": {
+   "label": "wrong",
+   "A": {
+    "verdict": "fail",
+    "diffs": [
+     "user u2 balance 62.50, expected 12.50",
+     "order o3 is paid [{'method': 'credit_card', 'amount': 50.0}], expected paid [{'method': 'gift_card', 'amount': 50.0}]"
+    ]
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "user u2 balance 62.50, expected 12.50",
+     "order o3 is paid [{'method': 'credit_card', 'amount': 50.0}], expected paid [{'method': 'gift_card', 'amount': 50.0}]"
+    ],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient gift card balance."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient funds."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient balance."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient gift card balance."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "Agent correctly declined the request due to insufficient balance."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T23": {
+   "label": "wrong",
+   "A": {
+    "verdict": "fail",
+    "diffs": [
+     "user u3 balance 66.75, expected 95.00",
+     "order o5 is paid [{'method': 'gift_card', 'amount': 28.25}, {'method': 'gift_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+    ]
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "user u3 balance 66.75, expected 95.00",
+     "order o5 is paid [{'method': 'gift_card', 'amount': 28.25}, {'method': 'gift_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+    ],
+    "persistence_ok": true,
+    "conservation_ok": true,
+    "drift": 0.0
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the outcome is consistent with the tools' returns."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the agent's message was consistent with the tools' return."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the agent's response was consistent with the tools' results."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the outcome is consistent with the tools' returns."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out as asked, the customer was charged the right amount exactly once, and the outcome was consistent with the tools' return."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "C"
+   ]
+  },
+  "T24": {
+   "label": "wrong",
+   "A": {
+    "verdict": "pass",
+    "diffs": []
+   },
+   "B": {
+    "verdict": "fail",
+    "reasons": [
+     "tool changed user:u3 but it was never persisted",
+     "gift-card money not conserved (drift -65.50)"
+    ],
+    "persistence_ok": false,
+    "conservation_ok": false,
+    "drift": -65.5
+   },
+   "C": {
+    "verdict": "pass",
+    "votes": {
+     "pass": 5,
+     "fail": 0
+    },
+    "unanimous": true,
+    "seeds": [
+     {
+      "seed": 1,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool's return."
+     },
+     {
+      "seed": 2,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged the right amount exactly once, and the agent's response was consistent with the tool's return."
+     },
+     {
+      "seed": 3,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly with the order payment method changed and the appropriate amount refunded to the gift card."
+     },
+     {
+      "seed": 4,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly, the customer was charged/discharged the right amount exactly once, and the agent's response was consistent with the tool result."
+     },
+     {
+      "seed": 5,
+      "verdict": "pass",
+      "reason": "The request was carried out correctly and the customer was informed accurately."
+     }
+    ]
+   },
+   "grader_wrong": [
+    "A",
+    "C"
+   ]
+  }
+ },
+ "validation": {
+  "checks": {
+   "24 traces": {
+    "ok": true,
+    "detail": 24
+   },
+   "trace ids unique": {
+    "ok": true,
+    "detail": ""
+   },
+   "label ids match trace ids": {
+    "ok": true,
+    "detail": ""
+   },
+   "judge ids match trace ids": {
+    "ok": true,
+    "detail": ""
+   },
+   "label values valid": {
+    "ok": true,
+    "detail": ""
+   },
+   "12 correct, 12 planted-error traces": {
+    "ok": true,
+    "detail": ""
+   },
+   "every trace has 5 verdicts": {
+    "ok": true,
+    "detail": {
+     "T01": 5,
+     "T02": 5,
+     "T03": 5,
+     "T04": 5,
+     "T05": 5,
+     "T06": 5,
+     "T07": 5,
+     "T08": 5,
+     "T09": 5,
+     "T10": 5,
+     "T11": 5,
+     "T12": 5,
+     "T13": 5,
+     "T14": 5,
+     "T15": 5,
+     "T16": 5,
+     "T17": 5,
+     "T18": 5,
+     "T19": 5,
+     "T20": 5,
+     "T21": 5,
+     "T22": 5,
+     "T23": 5,
+     "T24": 5
+    }
+   },
+   "seeds are 1..5 on every trace": {
+    "ok": true,
+    "detail": ""
+   },
+   "no null verdicts": {
+    "ok": true,
+    "detail": "0 null"
+   },
+   "no empty reasons": {
+    "ok": true,
+    "detail": ""
+   },
+   "re-asks needed (malformed JSON)": {
+    "ok": true,
+    "detail": "0 of 120 verdicts"
+   },
+   "judge prompt has no leaked grading terms": {
+    "ok": true,
+    "detail": []
+   },
+   "seeds change the written reason": {
+    "ok": true,
+    "detail": "4.08 distinct reasons per trace out of 5"
+   }
+  }
+ },
+ "caution": "n = 24 traces, one labeller, scripted traces. Intervals are wide; do not read these as general accuracy."
+}

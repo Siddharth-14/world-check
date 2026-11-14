@@ -1,0 +1,52 @@
+[
+  {
+    "user_id": "u1",
+    "name": "Priya Moreau",
+    "gift_card_balance": 139.75,
+    "order_ids": [
+      "o1",
+      "o2"
+    ]
+  },
+  {
+    "user_id": "u2",
+    "name": "Remy Brandt",
+    "gift_card_balance": 62.5,
+    "order_ids": [
+      "o3"
+    ]
+  },
+  {
+    "user_id": "u3",
+    "name": "Hana Nakamura",
+    "gift_card_balance": 123.25,
+    "order_ids": [
+      "o4",
+      "o5"
+    ]
+  },
+  {
+    "user_id": "u4",
+    "name": "Tomas Brandt",
+    "gift_card_balance": 13.45,
+    "order_ids": [
+      "o6"
+    ]
+  },
+  {
+    "user_id": "u5",
+    "name": "Arjun Haddad",
+    "gift_card_balance": 67.75,
+    "order_ids": [
+      "o7"
+    ]
+  },
+  {
+    "user_id": "u6",
+    "name": "Maya Lindqvist",
+    "gift_card_balance": 14.04,
+    "order_ids": [
+      "o8"
+    ]
+  }
+]

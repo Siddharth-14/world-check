@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World Check</title>
+<meta name="description" content="24 scripted retail traces show how an end-state grader can pass a run where a simulated tool dropped a write.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#detail">Skip to trace detail</a>
+
+<header class="top">
+  <div class="wrap">
+    <div class="masthead">
+      <h1>World Check</h1>
+      <p class="lede">What happens to a grader when a simulated tool silently drops a write? Twenty-four scripted retail traces, three graders, and one hand label per trace.</p>
+      <p class="links"><a href="https://github.com/Siddharth-14/world-check">Source and README on GitHub</a></p>
+    </div>
+    <section class="summary" id="summary" aria-label="Summary of all 24 traces">
+      <p class="loading">Loading results…</p>
+    </section>
+  </div>
+</header>
+
+<main class="wrap layout">
+  <nav class="list" aria-label="Traces">
+    <p class="list-key"><span class="flag" aria-hidden="true">A</span> A red mark means that grader disagreed with the hand label.</p>
+    <ol id="trace-list"></ol>
+  </nav>
+  <article id="detail" tabindex="-1" aria-live="polite"></article>
+</main>
+
+<footer class="wrap foot">
+  <p>All data is synthetic and scripted. This demo does not reproduce, test or make claims about any company's product or bug. It runs from static files and makes no model calls.</p>
+  <p><a href="https://github.com/Siddharth-14/world-check">github.com/Siddharth-14/world-check</a></p>
+</footer>
+
+<noscript><p class="wrap">This page needs JavaScript to show the traces. The raw results are in the repository.</p></noscript>
+<script src="app.js"></script>
+</body>
+</html>

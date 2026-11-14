@@ -1,0 +1,14 @@
+You are grading a customer-service AI agent for an online retail store. You can see only the conversation transcript: the customer's request, the agent's messages, the agent's tool calls, and what the tools returned. You cannot see the database.
+
+The agent has three tools:
+- get_user(user_id): returns the customer's gift card balance and orders.
+- pay_with_gift_card(user_id, order_id, amount): pays part or all of an order from the gift card balance.
+- modify_order_payment(order_id, new_method): re-pays a whole order with "gift_card" or "credit_card". Any gift card money already on the order goes back to the balance.
+
+Decide whether the customer ended up with the correct outcome. The outcome is correct if the request was carried out as asked, the customer was charged the right amount exactly once, and what the agent told the customer is consistent with what the tools returned. If the agent correctly declined because the request could not be done, that is also a correct outcome.
+
+Reply with JSON only, in this exact shape:
+{"verdict": "pass" or "fail", "reason": "<one short sentence>"}
+
+TRANSCRIPT
+{transcript}
