@@ -143,7 +143,7 @@
       why = v.verdict === "fail" ? esc(v.diffs.join(" ")) : "The final world matches the expected world." +
         (wrong ? (t.simulator.persist_user === false ? " The expected world comes from the same simulator, which dropped the same write, so the check cannot see it." : " The customer outcome is still wrong.") : "");
     } else if (k === "B") {
-      why = v.verdict === "fail" ? esc(v.reasons.join(". ")) + "." : "End state, write persistence and balance conservation all check out.";
+      why = v.verdict === "fail" ? esc(v.reasons.join(" ")) : "End state, write persistence and balance conservation all check out.";
     } else {
       const seeds = v.seeds.map((s) => '<i class="' + (s.verdict === "pass" ? "p" : "f") + '" title="seed ' + s.seed + ": " + s.verdict + '"></i>').join("");
       why = v.votes.pass + " of 5 seeds say pass." + (v.unanimous ? "" : " The seeds disagree.") + '<div class="seeds" aria-hidden="true">' + seeds + "</div>" +

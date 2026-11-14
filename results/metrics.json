@@ -200,8 +200,8 @@
    "B": {
     "verdict": "fail",
     "reasons": [
-     "tool changed user:u3 but it was never persisted",
-     "gift-card money not conserved (drift +28.25)"
+     "A tool changed user:u3 but the change was never persisted.",
+     "Gift-card money is not conserved (off by +$28.25)."
     ],
     "persistence_ok": false,
     "conservation_ok": false,
@@ -251,14 +251,14 @@
    "A": {
     "verdict": "fail",
     "diffs": [
-     "user u5 balance 5.75, expected 36.75"
+     "u5 balance is $5.75, expected $36.75."
     ]
    },
    "B": {
     "verdict": "fail",
     "reasons": [
-     "user u5 balance 5.75, expected 36.75",
-     "gift-card money not conserved (drift -31.00)"
+     "u5 balance is $5.75, expected $36.75.",
+     "Gift-card money is not conserved (off by -$31.00)."
     ],
     "persistence_ok": true,
     "conservation_ok": false,
@@ -308,15 +308,15 @@
    "A": {
     "verdict": "fail",
     "diffs": [
-     "user u1 balance 139.75, expected 97.25",
-     "order o1 is pending [], expected paid [{'method': 'gift_card', 'amount': 42.5}]"
+     "u1 balance is $139.75, expected $97.25.",
+     "o1 is pending with no payment, expected paid with gift card $42.50."
     ]
    },
    "B": {
     "verdict": "fail",
     "reasons": [
-     "user u1 balance 139.75, expected 97.25",
-     "order o1 is pending [], expected paid [{'method': 'gift_card', 'amount': 42.5}]"
+     "u1 balance is $139.75, expected $97.25.",
+     "o1 is pending with no payment, expected paid with gift card $42.50."
     ],
     "persistence_ok": true,
     "conservation_ok": true,
@@ -822,8 +822,8 @@
    "B": {
     "verdict": "fail",
     "reasons": [
-     "tool changed user:u1 but it was never persisted",
-     "gift-card money not conserved (drift +42.50)"
+     "A tool changed user:u1 but the change was never persisted.",
+     "Gift-card money is not conserved (off by +$42.50)."
     ],
     "persistence_ok": false,
     "conservation_ok": false,
@@ -980,8 +980,8 @@
    "B": {
     "verdict": "fail",
     "reasons": [
-     "tool changed user:u2 but it was never persisted",
-     "gift-card money not conserved (drift +50.00)"
+     "A tool changed user:u2 but the change was never persisted.",
+     "Gift-card money is not conserved (off by +$50.00)."
     ],
     "persistence_ok": false,
     "conservation_ok": false,
@@ -1132,14 +1132,14 @@
    "A": {
     "verdict": "fail",
     "diffs": [
-     "user u1 balance 54.75, expected 97.25"
+     "u1 balance is $54.75, expected $97.25."
     ]
    },
    "B": {
     "verdict": "fail",
     "reasons": [
-     "user u1 balance 54.75, expected 97.25",
-     "gift-card money not conserved (drift -42.50)"
+     "u1 balance is $54.75, expected $97.25.",
+     "Gift-card money is not conserved (off by -$42.50)."
     ],
     "persistence_ok": true,
     "conservation_ok": false,
@@ -1189,15 +1189,15 @@
    "A": {
     "verdict": "fail",
     "diffs": [
-     "user u1 balance 28.75, expected 84.25",
-     "order o2 is paid [{'method': 'gift_card', 'amount': 55.5}, {'method': 'gift_card', 'amount': 55.5}], expected paid [{'method': 'gift_card', 'amount': 55.5}]"
+     "u1 balance is $28.75, expected $84.25.",
+     "o2 is paid with gift card $55.50 + gift card $55.50, expected paid with gift card $55.50."
     ]
    },
    "B": {
     "verdict": "fail",
     "reasons": [
-     "user u1 balance 28.75, expected 84.25",
-     "order o2 is paid [{'method': 'gift_card', 'amount': 55.5}, {'method': 'gift_card', 'amount': 55.5}], expected paid [{'method': 'gift_card', 'amount': 55.5}]"
+     "u1 balance is $28.75, expected $84.25.",
+     "o2 is paid with gift card $55.50 + gift card $55.50, expected paid with gift card $55.50."
     ],
     "persistence_ok": true,
     "conservation_ok": true,
@@ -1247,15 +1247,15 @@
    "A": {
     "verdict": "fail",
     "diffs": [
-     "user u3 balance 123.25, expected 95.00",
-     "order o5 is paid [{'method': 'credit_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+     "u3 balance is $123.25, expected $95.00.",
+     "o5 is paid with credit card $28.25, expected paid with gift card $28.25."
     ]
    },
    "B": {
     "verdict": "fail",
     "reasons": [
-     "user u3 balance 123.25, expected 95.00",
-     "order o5 is paid [{'method': 'credit_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+     "u3 balance is $123.25, expected $95.00.",
+     "o5 is paid with credit card $28.25, expected paid with gift card $28.25."
     ],
     "persistence_ok": true,
     "conservation_ok": true,
@@ -1303,15 +1303,15 @@
    "A": {
     "verdict": "fail",
     "diffs": [
-     "user u2 balance 62.50, expected 12.50",
-     "order o3 is paid [{'method': 'credit_card', 'amount': 50.0}], expected paid [{'method': 'gift_card', 'amount': 50.0}]"
+     "u2 balance is $62.50, expected $12.50.",
+     "o3 is paid with credit card $50.00, expected paid with gift card $50.00."
     ]
    },
    "B": {
     "verdict": "fail",
     "reasons": [
-     "user u2 balance 62.50, expected 12.50",
-     "order o3 is paid [{'method': 'credit_card', 'amount': 50.0}], expected paid [{'method': 'gift_card', 'amount': 50.0}]"
+     "u2 balance is $62.50, expected $12.50.",
+     "o3 is paid with credit card $50.00, expected paid with gift card $50.00."
     ],
     "persistence_ok": true,
     "conservation_ok": true,
@@ -1361,15 +1361,15 @@
    "A": {
     "verdict": "fail",
     "diffs": [
-     "user u3 balance 66.75, expected 95.00",
-     "order o5 is paid [{'method': 'gift_card', 'amount': 28.25}, {'method': 'gift_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+     "u3 balance is $66.75, expected $95.00.",
+     "o5 is paid with gift card $28.25 + gift card $28.25, expected paid with gift card $28.25."
     ]
    },
    "B": {
     "verdict": "fail",
     "reasons": [
-     "user u3 balance 66.75, expected 95.00",
-     "order o5 is paid [{'method': 'gift_card', 'amount': 28.25}, {'method': 'gift_card', 'amount': 28.25}], expected paid [{'method': 'gift_card', 'amount': 28.25}]"
+     "u3 balance is $66.75, expected $95.00.",
+     "o5 is paid with gift card $28.25 + gift card $28.25, expected paid with gift card $28.25."
     ],
     "persistence_ok": true,
     "conservation_ok": true,
@@ -1423,8 +1423,8 @@
    "B": {
     "verdict": "fail",
     "reasons": [
-     "tool changed user:u3 but it was never persisted",
-     "gift-card money not conserved (drift -65.50)"
+     "A tool changed user:u3 but the change was never persisted.",
+     "Gift-card money is not conserved (off by -$65.50)."
     ],
     "persistence_ok": false,
     "conservation_ok": false,

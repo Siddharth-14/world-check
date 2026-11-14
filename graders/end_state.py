@@ -30,17 +30,21 @@ def expected_world(trace):
     return env.store
 
 
+def _pay(payments):
+    return " + ".join(f"{p['method'].replace('_', ' ')} ${p['amount']:.2f}" for p in payments) or "no payment"
+
+
 def grade(trace):
     exp = expected_world(trace)
     users, orders = _index(trace["final_world"])
     diffs = []
     for uid, u in users.items():
         if abs(u["gift_card_balance"] - exp["users"][uid]["gift_card_balance"]) > 0.005:
-            diffs.append(f"user {uid} balance {u['gift_card_balance']:.2f}, expected {exp['users'][uid]['gift_card_balance']:.2f}")
+            diffs.append(f"{uid} balance is ${u['gift_card_balance']:.2f}, expected ${exp['users'][uid]['gift_card_balance']:.2f}.")
     for oid, o in orders.items():
         e = exp["orders"][oid]
         if o["status"] != e["status"] or o["payments"] != e["payments"]:
-            diffs.append(f"order {oid} is {o['status']} {o['payments']}, expected {e['status']} {e['payments']}")
+            diffs.append(f"{oid} is {o['status']} with {_pay(o['payments'])}, expected {e['status']} with {_pay(e['payments'])}.")
     return {"verdict": "pass" if not diffs else "fail", "diffs": diffs}
 
 

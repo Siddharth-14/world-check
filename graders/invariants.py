@@ -42,9 +42,9 @@ def grade(trace):
     c = balance_conservation(trace)
     reasons = list(a["diffs"])
     if not w["ok"]:
-        reasons.append("tool changed " + ", ".join(w["missing"]) + " but it was never persisted")
+        reasons.append("A tool changed " + ", ".join(w["missing"]) + " but the change was never persisted.")
     if not c["ok"]:
-        reasons.append(f"gift-card money not conserved (drift {c['drift']:+.2f})")
+        reasons.append(f"Gift-card money is not conserved (off by {'+' if c['drift'] > 0 else '-'}${abs(c['drift']):.2f}).")
     ok = a["verdict"] == "pass" and w["ok"] and c["ok"]
     return {"verdict": "pass" if ok else "fail", "end_state": a["verdict"], "persistence": w,
             "conservation": c, "reasons": reasons}

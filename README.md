@@ -1,6 +1,6 @@
 # World Check
 
-**Live demo:** LIVE_URL
+**Live demo:** https://world-check-demo.netlify.app
 
 When a simulated tool silently drops a write, the world a grader inspects at the end can look correct even though the customer's money is wrong. This repo builds a small synthetic retail world, scripts 24 agent traces over it, and measures how three kinds of grader handle the 12 traces that contain a planted error.
 
